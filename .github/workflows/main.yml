@@ -12,17 +12,20 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '8'
+        distribution: 'zulu'  # Wajib ditambahkan
+        cache: 'gradle'       # Mengaktifkan caching
 
     - name: Build Cache
       run: |
         chmod +x gradlew
-        ./gradlew setupDecompWorkspace --no-daemon
-
+        ./gradlew setupDecompWorkspace --no-daemon --stacktrace
+        
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4  # Update ke versi terbaru
       with:
         name: forge-1.12.2-cache
         path: |
-          ~/.gradle/caches/forge_gradle/
-          ~/.gradle/caches/modules-2/
-        compression-level: 9  # Kompresi maksimal
+          .gradle/caches/forge_gradle/
+          .gradle/caches/modules-2/
+        compression-level: 9
+        retention-days: 3  # Otomatis hapus setelah 3 hari
