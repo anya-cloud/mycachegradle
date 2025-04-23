@@ -25,7 +25,7 @@ jobs:
     - name: Build Cache
       run: |
         chmod +x gradlew
-        ./gradlew setupDecompWorkspace --no-daemon --stacktrace
+        ./gradlew setupDevWorkspace --no-daemon || ./gradlew setupDecompWorkspace --no-daemon
         
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
