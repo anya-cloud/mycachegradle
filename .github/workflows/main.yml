@@ -12,8 +12,15 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '8'
-        distribution: 'zulu'  # Wajib ditambahkan
-        cache: 'gradle'       # Mengaktifkan caching
+        distribution: 'zulu'  # Parameter wajib yang hilang
+        java-package: jdk
+        check-latest: false
+        server-id: github
+        server-username: GITHUB_ACTOR
+        server-password: GITHUB_TOKEN
+        overwrite-settings: true
+        job-status: success
+        cache: 'gradle'
 
     - name: Build Cache
       run: |
@@ -21,7 +28,7 @@ jobs:
         ./gradlew setupDecompWorkspace --no-daemon --stacktrace
         
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4  # Update ke versi terbaru
+      uses: actions/upload-artifact@v4
       with:
         name: forge-1.12.2-cache
         path: |
